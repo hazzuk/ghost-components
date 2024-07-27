@@ -1,0 +1,52 @@
+/* Copyright (c) 2024 hazzuk. All rights reserved.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * you can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.complexity-container {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.level-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.level-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.level-bars {
+    display: flex;
+}
+
+.bar {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background-color: #ddd;
+    border-radius: 3px;
+}
+
+.bar.active {
+    background-color: #4caf50;
+}
+
+.level-indicator[data-level="1"] .bar:nth-child(1),
+.level-indicator[data-level="2"] .bar:nth-child(-n+2),
+.level-indicator[data-level="3"] .bar {
+    background-color: #4caf50;
+}
+
+.level-indicator[data-level="2"] .bar.active {
+    background-color: #ff9800;
+}
+
+.level-indicator[data-level="3"] .bar.active {
+    background-color: #f44336;
+}
