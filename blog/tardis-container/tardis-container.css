@@ -1,0 +1,12 @@
+
+.tardis-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tardis-container img {
+    margin-top: 25px;
+    width: 16px;
+    opacity: 0.6;
+    cursor: pointer;
+}
