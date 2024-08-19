@@ -1,0 +1,42 @@
+name: Combine CSS and JS Files
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Combine and Clean CSS Files
+      run: |
+        mkdir -p dist
+        find components overrides -name '*.css' -exec sed -e '/^\/\*/d' -e '/^\*\//d' -e '/^ \* /d' -e '/^\/\//d' {} + >> dist/combined.css
+
+    - name: Combine and Clean JS Files
+      run: |
+        find components overrides -name '*.js' -exec sed -e '/^\/\*/d' -e '/^\*\//d' -e '/^ \* /d' -e '/^\/\//d' {} + >> dist/combined.js
+
+    - name: Add CSS License Header
+      run: |
+        cat .github/license-header_css.txt > dist/temp.css
+        cat dist/combined.css >> dist/temp.css
+        mv dist/temp.css dist/combined.css
+
+    - name: Add JS License Header
+      run: |
+        cat .github/license-header_js.txt > dist/temp.js
+        cat dist/combined.js >> dist/temp.js
+        mv dist/temp.js dist/combined.js
+
+    - name: Upload combined files
+      uses: actions/upload-artifact@v4
+      with:
+        name: combined-files
+        path: dist/
