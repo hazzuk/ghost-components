@@ -1,0 +1,36 @@
+/* Copyright (c) 2024 hazzuk. All rights reserved.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * you can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.gh-footer-logo {
+    position: relative;
+    display: inline-block;
+}
+
+.gh-footer-logo img {
+    transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.back-to-top-arrow {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    /* Set the arrow image location here*/
+    background: url('/content/images/2024/07/up-arrow.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.gh-footer-logo:hover img {
+    opacity: 0;
+}
+
+.gh-footer-logo:hover .back-to-top-arrow {
+    opacity: 1;
+}
