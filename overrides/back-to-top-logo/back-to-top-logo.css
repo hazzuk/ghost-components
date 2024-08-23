@@ -20,7 +20,7 @@
     width: 40px;
     height: 40px;
     /* Set the arrow image location here*/
-    background: url('/content/images/2024/07/up-arrow.png') no-repeat center center;
+    background: url('/media/up-arrow.png') no-repeat center center;
     background-size: contain;
     opacity: 0;
     transition: opacity 0.3s ease;
