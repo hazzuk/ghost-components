@@ -6,8 +6,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Select the Ghost page meta element
     const metaElement = document.querySelector('meta[property="article:modified_time"]');
-    // Select the components text element
+    // Try and select the components text element
     const textElement = document.querySelector('.last-updated h4');
+    if (!textElement) {
+        return;
+    }
 
     if (metaElement) {
         // Get the pages last updated date

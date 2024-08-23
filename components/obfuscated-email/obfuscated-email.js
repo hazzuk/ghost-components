@@ -4,8 +4,13 @@
 // you can obtain one at http://mozilla.org/MPL/2.0/.
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Select the components email link element
+    // Try and select the components email link element
     const emailLinkElement = document.querySelector('.email-link');
+    if (!emailLinkElement) {
+        return;
+    }
+
+    // Create the email link from the data attributes
     const user = emailLinkElement.getAttribute('data-user');
     const domain = emailLinkElement.getAttribute('data-domain');
     const email = user + '@' + domain;
