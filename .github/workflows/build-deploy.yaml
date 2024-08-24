@@ -60,3 +60,12 @@ jobs:
       with:
         name: combined-files
         path: dist/
+
+    # Deploy build
+    - name: Deploy to Cloudflare Pages
+      uses: cloudflare/pages-action@v1.5.0
+      with:
+        apiToken: ${{ secrets.CF_PAGES_TOKEN }}
+        accountId: ${{ secrets.CF_PAGES_ACCOUNT_ID }}
+        projectName: ghost-components
+        directory: dist
