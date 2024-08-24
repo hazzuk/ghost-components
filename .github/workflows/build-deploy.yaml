@@ -1,4 +1,4 @@
-name: Combine CSS and JS Files
+name: Build and deploy
 
 on:
   push:
@@ -11,31 +11,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Combine and Clean CSS Files
+    # Combine all components and overrides
+    - name: Combine and clean CSS files
       run: |
         mkdir -p dist
         find components overrides -name '*.css' -exec sed -e '/^\/\*/d' -e '/^\*\//d' -e '/^ \* /d' -e '/^\/\//d' {} + >> dist/combined.css
 
-    - name: Combine and Clean JS Files
+    - name: Combine and clean JS files
       run: |
         find components overrides -name '*.js' -exec sed -e '/^\/\*/d' -e '/^\*\//d' -e '/^ \* /d' -e '/^\/\//d' {} + >> dist/combined.js
 
-    - name: Add CSS License Header
+    - name: Add CSS license header
       run: |
         cat .github/license-header_css.txt > dist/temp.css
         cat dist/combined.css >> dist/temp.css
         mv dist/temp.css dist/combined.css
 
-    - name: Add JS License Header
+    - name: Add JS license header
       run: |
         cat .github/license-header_js.txt > dist/temp.js
         cat dist/combined.js >> dist/temp.js
         mv dist/temp.js dist/combined.js
 
-    - name: Upload combined files
+    # Add media files
+    - name: Find and add all media
+      run: |
+        mkdir -p dist/media
+        find . -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.webp" \) -exec mv {} dist/media/ \;
+
+    # Add personal blog files
+    # Remove or modify this accordingly
+    - name: Find and move blog files
+      run: |
+        mkdir -p dist/blog
+        find "$GITHUB_WORKSPACE/blog" -type f -exec mv {} dist/blog/ \;
+
+    # Create the build
+    - name: Create build artifact
       uses: actions/upload-artifact@v4
       with:
         name: combined-files
