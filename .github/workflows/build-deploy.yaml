@@ -14,7 +14,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Combine all components and overrides
+    # Components and overrides
     - name: Combine and clean CSS files
       run: |
         mkdir -p dist
@@ -24,32 +24,37 @@ jobs:
       run: |
         find components overrides -name '*.js' -exec sed -e '/^\/\*/d' -e '/^\*\//d' -e '/^ \* /d' -e '/^\/\//d' {} + >> dist/combined.js
 
-    - name: Add CSS license header
+    - name: Add CSS license header and add file
       run: |
         cat .github/license-header_css.txt > dist/temp.css
         cat dist/combined.css >> dist/temp.css
         mv dist/temp.css dist/combined.css
 
-    - name: Add JS license header
+    - name: Add JS license header and add file
       run: |
         cat .github/license-header_js.txt > dist/temp.js
         cat dist/combined.js >> dist/temp.js
         mv dist/temp.js dist/combined.js
 
-    # Add media files
+    # Media files
     - name: Find and add all media
       run: |
         mkdir -p dist/media
         find . -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.webp" \) -exec mv {} dist/media/ \;
 
-    # Add personal blog files
-    # Remove or modify this accordingly
-    - name: Find and move blog files
+    # README and LICENSE
+    - name: Add repository README and LICENSE
+      run: |
+        mv "$GITHUB_WORKSPACE/README.md" "$GITHUB_WORKSPACE/LICENSE" dist/
+
+    # Blog files
+    # (Remove or modify this accordingly)
+    - name: Find and add blog files
       run: |
         mkdir -p dist/blog
         find "$GITHUB_WORKSPACE/blog" -type f -exec mv {} dist/blog/ \;
 
-    # Create the build
+    # Build artifact
     - name: Create build artifact
       uses: actions/upload-artifact@v4
       with:
