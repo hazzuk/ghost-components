@@ -15,6 +15,7 @@ Standalone additions for features not found in Ghost's [editor cards](https://gh
 - Last updated
 - Obfuscated email
 - Skills cloud
+- Table of contents
 
 ### Overrides
 Small tweaks to the Source theme, without requiring direct changes.
